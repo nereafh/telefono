@@ -158,14 +158,12 @@ function iniciarTelefono() {
     }
     });
 
-    document.getElementById("llamar").addEventListener("mouseup", e => {
-    e.preventDefault();
+    document.getElementById("llamar").addEventListener("mouseup", () => {
     telefono.llamar();
     });
 
 
-    document.getElementById("colgar").addEventListener("mouseup", e => {
-    e.preventDefault();
+    document.getElementById("colgar").addEventListener("mouseup", () => {
     telefono.colgar();
     });
 }
