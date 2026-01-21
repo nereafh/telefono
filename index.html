@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="telefonoForm">
+        <!-- Pantalla principal -->
+        <input type="text" id="pantalla" readonly class="pantalla" placeholder="Enter phone number" />
+
+        <!-- Donde se apilan los números -->
+        <div id="historial"></div>
+
+        <!-- Teclado numérico -->
+        <table id="teclado">
+
+            <tr>
+                <td><button type="button" data-tecla="1">1</button></td>
+                                        <!-- data es un atributo personalizado -->
+                <td><button type="button" data-tecla="2">2 ABC</button></td>
+                <td><button type="button" data-tecla="3">3 DEF</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" data-tecla="4">4 GHI</button></td>
+                <td><button type="button" data-tecla="5">5 JKL</button></td>
+                <td><button type="button" data-tecla="6">6 MNO</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" data-tecla="7">7 PQRS</button></td>
+                <td><button type="button" data-tecla="8">8 TUV</button></td>
+                <td><button type="button" data-tecla="9">9 WXYZ</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" id="colgar" class="rojo">X</button></td>
+                <td><button type="button" data-tecla="0">0</button></td>
+                <td><button type="button" id="llamar" class="verde">#</button></td>
+            </tr>
+        </table>
+    </form>
+</body>
+    <script src="teclas.js"></script>
+</html>
