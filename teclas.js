@@ -52,7 +52,7 @@ class Telefono {
         this.texto = ""; //lo que se ve en la pantalla del telefono (las letras al pulsar mas de una vez)
         this.ultimaTecla = null; //la ultima tecla pulsada, para saber si se pulsa la misma o no, multiclick
         this.indice = 0; //para saber que letra de la tecla se debe mostrar dentro del array TECLAS
-        this.timer = null; //una vez que pasan 800ms sin pulsar, se resetea la ultimaTecla e indice
+        this.timer = null; //una vez que pasan 3000ms sin pulsar, se resetea la ultimaTecla e indice
         this.pantalla = document.getElementById('pantalla'); //para no tener que buscarla cada vez
     }
     
@@ -72,13 +72,13 @@ class Telefono {
         this.reiniciarTimer();
     }
 
-    //Si pasan 800ms sin pulsar, resetea ultimaTecla e indice
+    //Si pasan 3000ms sin pulsar, resetea ultimaTecla e indice
     reiniciarTimer() {
         clearTimeout(this.timer);
         this.timer = setTimeout(() => {
         this.ultimaTecla = null;
         this.indice = 0;
-        }, 800);
+        }, 3000);
     }
 
 
@@ -88,17 +88,18 @@ class Telefono {
     }
 
     validar() {
-        const regex = /^[6789]\d{8}$/;
-        if (regex.test(this.texto)) {
-        this.pantalla.style.background = "#b6fcb6";
-        } else {
-        this.pantalla.style.background = "#fcb6b6";
-        }
+            const regex = /^[6789]\d{8}$/; // Ojo, esto valida un número español estándar. 
+            if (regex.test(this.texto)) {
+                this.pantalla.style.background = "#b6fcb6"; // Verde
+            } else {
+                this.pantalla.style.background = "#fcb6b6"; // Rojo
+            }
 
-
-        if (this.texto.includes("CUMPLE")) {
-        this.colgar();
-        }
+            if (this.texto.includes("CUMPLE")) {
+                this.colgar(); // Borra la pantalla actual
+                document.getElementById("historial").innerHTML = ""; // Borra todas las pantallas apiladas
+                sessionStorage.removeItem("ultimoNumero"); // Borra la memoria
+            }
     }
 
     colgar() {
@@ -125,6 +126,16 @@ class Telefono {
     }
 
 
+    recuperar() {
+        // Leemos el valor guardado
+        const guardado = sessionStorage.getItem("ultimoNumero");
+        if (guardado) {
+            this.texto = guardado; // Lo ponemos en la memoria del teléfono
+            this.actualizarPantalla(); // Lo mostramos en pantalla
+        } else {
+            console.log("No hay nada guardado");
+        }
+    }
 
 }
 
@@ -165,5 +176,9 @@ function iniciarTelefono() {
 
     document.getElementById("colgar").addEventListener("mouseup", () => {
     telefono.colgar();
+    });
+
+    document.getElementById("recuperar").addEventListener("mouseup", () => {
+        telefono.recuperar();
     });
 }
